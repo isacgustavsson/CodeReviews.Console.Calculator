@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": ".NET Console Launch",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/consoleCalculator.isacgustavsson/bin/Debug/net9.0/consoleCalculator.isacgustavsson.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/consoleCalculator.isacgustavsson",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    }
+  ]
+}
