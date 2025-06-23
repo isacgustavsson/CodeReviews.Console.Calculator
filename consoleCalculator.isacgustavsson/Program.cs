@@ -1,80 +1,82 @@
-﻿// // Calculator app
+﻿using CalcLib;
 
-// float num1 = 0;
-// float num2 = 0;
-
-// Console.WriteLine("---------------------------------------");
-// Console.WriteLine("");
-// Console.WriteLine("\tCalculator app");
-// Console.WriteLine("");
-// Console.WriteLine("---------------------------------------");
-// Console.WriteLine("");
-
-// Console.WriteLine("Please enter the first number.");
-// // num1 = Convert.ToInt32(Console.ReadLine());
-// num1 = float.Parse(Console.ReadLine());
-
-// Console.WriteLine("Please enter the second number.");
-// // num2 = Convert.ToInt32(Console.ReadLine());
-// num2 = float.Parse(Console.ReadLine());
-
-// Console.WriteLine(@"Choose operation
-// A - Addition
-// S - Subtraction
-// M - Multiplication
-// D - Division
-// ");
-
-// switch (Console.ReadLine().Trim().ToLower())
-// {
-//     case "a":
-//         Console.WriteLine($"Result: " + (num1 + num2));
-//         break;
-//     case "s":
-//         Console.WriteLine($"Result: " + (num1 - num2));
-//         break;
-//     case "m":
-//         Console.WriteLine($"Result: " + (num1 * num2));
-//         break;
-//     case "d":
-//         while (num2 == 0)
-//         {
-//             Console.WriteLine("Please enter a non-zero divisor: ");
-//             num2 = float.Parse(Console.ReadLine());
-//     }
-//         Console.WriteLine($"Result: " + (num1 / num2));
-//         break;
-// }
-
-// Console.WriteLine("Press any key to exit the Calculator.");
-// Console.ReadLine();
-
-
-class Calculator
+namespace CalculatorProgram
 {
-    double result = double.NaN;
-    public static double DoOperation(double num1, double num2, string op)
+    class Program
     {
-        switch (op)
+        static void Main(string[] args)
         {
-            case "a":
-                result = (num1 + num2);
-                break;
-            case "s":
-                result = (num1 - num2);
-                break;
-            case "m":
-                result = (num1 * num2);
-                break;
-            case "d":
-                if (num2 != 0)
+            bool endApp = false;
+
+            Console.WriteLine("Console Calculator in C#\r");
+            Console.WriteLine("--------------------------");
+
+            Calculator calculator = new Calculator();
+
+            while (!endApp)
+            {
+                string? numInput1 = "";
+                string? numInput2 = "";
+                double cleanNum1 = 0;
+                double cleanNum2 = 0;
+                double result = 0;
+
+                Console.WriteLine("Enter a number and press Enter:");
+                numInput1 = Console.ReadLine();
+
+                while (!double.TryParse(numInput1, out cleanNum1))
                 {
-                    result = (num1 / num2);
+                    Console.WriteLine("Invalid input. Please enter a valid number:");
+                    numInput1 = Console.ReadLine();
                 }
-                break;
-            default:
-                break;
+
+                Console.WriteLine("Enter another number and press Enter:");
+                numInput2 = Console.ReadLine();
+
+                while (!double.TryParse(numInput2, out cleanNum2))
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid number:");
+                    numInput2 = Console.ReadLine();
+                }
+
+                Console.WriteLine("Choose an operator:");
+                Console.WriteLine("a - Add");
+                Console.WriteLine("s - Subtract");
+                Console.WriteLine("m - Multiply");
+                Console.WriteLine("d - Divide");
+
+                string? op = Console.ReadLine();
+
+                if (op == null || (op != "a" && op != "s" && op != "m" && op != "d"))
+                {
+                    Console.WriteLine("Invalid operator, try again.");
+                }
+                else
+                {
+                    try
+                    {
+                        result = calculator.DoOperation(cleanNum1, cleanNum2, op);
+                        if (double.IsNaN(result))
+                        {
+                            Console.WriteLine("This operation will result in a mathematical error.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Your result: {0:0.##}\n", result);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Error: An exception occurred - " + e.Message);
+                    }
+                }
+
+                Console.Write("Press 'n' to exit, or any other key to continue: ");
+                if (Console.ReadLine() == "n") endApp = true;
+
+                Console.WriteLine(); // spacing
+            }
+                calculator.Finish();
         }
-        return result;
     }
 }

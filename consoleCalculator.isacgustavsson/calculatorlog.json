@@ -1,0 +1,14 @@
+{
+  "Operations": [
+    {
+      "Operand1": 42.0,
+      "Operand 2": 74.0,
+      "Operation": "Divide",
+      "Result1": 0.5675675675675675
+    },
+    {
+      "Operand1": 52.0,
+      "Operand 2": 6426.0,
+      "Operation": "Multiply",
+      "Result1": 334152.0
+    }
